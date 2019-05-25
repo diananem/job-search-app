@@ -6,7 +6,9 @@ import {
   createStackNavigator,
   createAppContainer
 } from "react-navigation";
+import { Provider } from "react-redux";
 
+import store from "./store";
 import AuthScreen from "./screens/AuthScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import MapScreen from "./screens/MapScreen";
@@ -16,26 +18,33 @@ import SettingsScreen from "./screens/SettingsScreen";
 
 export default class App extends Component {
   render() {
-    return <AppContainer />;
+    return (
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    );
   }
 }
 
-const AppNavigator = createBottomTabNavigator({
-  Welcome: { screen: WelcomeScreen },
-  Auth: { screen: AuthScreen },
-  Main: {
-    screen: createBottomTabNavigator({
-      Map: { screen: MapScreen },
-      Deck: { screen: DeckScreen },
-      Review: {
-        screen: createStackNavigator({
-          Review: { screen: ReviewScreen },
-          Settings: { screen: SettingsScreen }
-        })
-      }
-    })
+const AppNavigator = createSwitchNavigator(
+  {
+    Welcome: { screen: WelcomeScreen },
+    Auth: { screen: AuthScreen },
+    Main: {
+      screen: createBottomTabNavigator({
+        Map: { screen: MapScreen },
+        Deck: { screen: DeckScreen },
+        Review: {
+          screen: createStackNavigator({
+            Review: { screen: ReviewScreen },
+            Settings: { screen: SettingsScreen }
+          })
+        }
+      })
+    }
   }
-});
+  // { lazy: true }
+);
 
 const AppContainer = createAppContainer(AppNavigator);
 

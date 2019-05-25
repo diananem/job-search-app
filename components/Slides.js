@@ -16,7 +16,7 @@ class Slides extends Component {
     if (index === data.length - 1) {
       return (
         <View style={styles.buttonStyle}>
-          <Button color="white" title="Get Started" onPress={onComplete} />
+          <Button color="#f5bf80" title="Get Started" onPress={onComplete} />
         </View>
       );
     }
@@ -55,11 +55,7 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   buttonStyle: {
-    backgroundColor: "#f29657",
-    borderRadius: 40,
-    marginTop: 50,
-    fontSize: 40,
-    padding: 5
+    marginTop: 50
   }
 });
 
