@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Text, View, SafeAreaView } from "react-native";
+import {connect} from 'react-redux';
 
-export default class DeckScreen extends Component {
+// import * as actions from "../actions"
+
+ class DeckScreen extends Component {
   render() {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -12,3 +15,9 @@ export default class DeckScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ jobs }) => ({
+  return {jobs: jobs}
+});
+
+export default connect(mapStateToProps)(DeckScreen)

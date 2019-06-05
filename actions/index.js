@@ -2,7 +2,6 @@ import { AsyncStorage } from "react-native";
 import { Facebook } from "expo";
 import * as axios from "axios";
 import qs from "qs";
-// import reverseGeocode from "latlng-to-zip";
 import {
   FACEBOOK_LOGIN_SUCCESS,
   FACEBOOK_LOGIN_FAIL,
@@ -11,15 +10,6 @@ import {
 import { APP_ID } from "../utils";
 
 const JOB_ROOT_URL = "https://jobs.github.com/positions.json?";
-
-const JOB_QUERY_PARAMS = {
-  publisher: "",
-  format: "json",
-  v: "2",
-  latlong: 1,
-  radius: 10,
-  q: "javascript"
-};
 
 const buildJobUrl = region => {
   const query = qs.stringify({
@@ -30,12 +20,12 @@ const buildJobUrl = region => {
   return `${JOB_ROOT_URL}${query}`;
 };
 
-export const fetchJobs = region => async dispatch => {
+export const fetchJobs = (region, navigate) => async dispatch => {
   try {
-    // let zipCode = await reverseGeocode(region);
     const url = buildJobUrl(region);
     let { data } = await axios.get(url);
     dispatch({ type: FETCH_JOBS, payload: data });
+    navigate();
     console.log(data);
   } catch (err) {
     console.error(err);
