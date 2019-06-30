@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, SafeAreaView } from "react-native";
+import { TextInput, View, SafeAreaView } from "react-native";
 import { Button } from "react-native-elements";
 import { MapView } from "expo";
 import { connect } from "react-redux";
@@ -13,7 +13,8 @@ class MapScreen extends Component {
       longitude: -122,
       latitudeDelta: 0.09,
       longitudeDelta: 0.04
-    }
+    },
+    search: ""
   };
 
   onRegionChangeComplete = region => {
@@ -21,8 +22,9 @@ class MapScreen extends Component {
   };
 
   onPress = () => {
-    this.props.fetchJobs(this.state.region, () => {
-      this.props.navigation.navigate("Deck");
+    const { region, search } = this.state;
+    this.props.fetchJobs(region, search, () => {
+      this.props.navigation.navigate("Deck", { region });
     });
   };
   render() {
@@ -33,6 +35,20 @@ class MapScreen extends Component {
           initialRegion={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}
         />
+        <View style={{ position: "absolute", top: 80, left: 30, right: 30 }}>
+          <TextInput
+            style={{
+              height: 50,
+              borderColor: "#499DF5",
+              borderWidth: 2,
+              fontSize: 21,
+              paddingLeft: 10
+            }}
+            placeholder="Enter your speciality"
+            onChangeText={text => this.setState({ search: text })}
+          />
+        </View>
+
         <View style={styles.buttonContainer}>
           <Button
             large

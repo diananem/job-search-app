@@ -11,18 +11,18 @@ import { APP_ID } from "../utils";
 
 const JOB_ROOT_URL = "https://jobs.github.com/positions.json?";
 
-const buildJobUrl = region => {
+const buildJobUrl = (region, search) => {
   const query = qs.stringify({
-    search: "javascript",
+    search,
     lat: region.latitude,
     long: region.longitude
   });
   return `${JOB_ROOT_URL}${query}`;
 };
 
-export const fetchJobs = (region, navigate) => async dispatch => {
+export const fetchJobs = (region, search, navigate) => async dispatch => {
   try {
-    const url = buildJobUrl(region);
+    const url = buildJobUrl(region, search);
     let { data } = await axios.get(url);
     dispatch({ type: FETCH_JOBS, payload: data });
     navigate();
