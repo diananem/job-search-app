@@ -91,7 +91,7 @@ class Deck extends Component {
 
   renderCards() {
     const { currentCard } = this.state;
-    const { data } = this.props;
+    const { data, location } = this.props;
     if (currentCard >= data.length) {
       return (
         <Card
@@ -121,7 +121,7 @@ class Deck extends Component {
               style={[this.getCardStyle(), styles.cardStyle, { zIndex: 99 }]}
               {...this._panResponder.panHandlers}
             >
-              <CardComponent job={item} />
+              <CardComponent job={item} location={location} />
             </Animated.View>
           );
         }
@@ -133,7 +133,7 @@ class Deck extends Component {
               { top: 10 * (index - currentCard), zIndex: 5 }
             ]}
           >
-            <CardComponent job={item} />
+            <CardComponent job={item} location={location} />
           </Animated.View>
         );
       })

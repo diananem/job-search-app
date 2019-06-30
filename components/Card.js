@@ -3,7 +3,7 @@ import { MapView } from "expo";
 import { View, Text } from "react-native";
 import { Card } from "react-native-elements";
 
-const CardComponent = ({ job }) => (
+const CardComponent = ({ job, location }) => (
   <Card
     key={job.id}
     title={job.title}
@@ -18,12 +18,8 @@ const CardComponent = ({ job }) => (
       <MapView
         scrollEnabled={false}
         style={{ flex: 1 }}
-        initialRegion={{
-          latitude: 37,
-          longitude: -122,
-          longitudeDelta: 0.045,
-          latitudeDelta: 0.02
-        }}
+        initialRegion={location}
+        cacheEnabled={true}
       />
     </View>
     <View style={styles.jobDetails}>

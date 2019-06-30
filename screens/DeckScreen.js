@@ -8,10 +8,16 @@ import Deck from "../components/Deck";
 
 class DeckScreen extends Component {
   render() {
+    const location = this.props.navigation.getParam("region", {
+      latitude: 37,
+      longitude: -122,
+      latitudeDelta: 0.09,
+      longitudeDelta: 0.04
+    });
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <View>
-          <Deck data={this.props.jobs} />
+          <Deck data={this.props.jobs} location={location} />
         </View>
       </SafeAreaView>
     );
