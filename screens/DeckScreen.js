@@ -5,6 +5,7 @@ import { MapView, Location } from "expo";
 import { Card } from "react-native-elements";
 
 import Deck from "../components/Deck";
+import * as actions from "../actions";
 
 class DeckScreen extends Component {
   render() {
@@ -16,8 +17,12 @@ class DeckScreen extends Component {
     });
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-        <View>
-          <Deck data={this.props.jobs} location={location} />
+        <View style={{ marginTop: 10 }}>
+          <Deck
+            data={this.props.jobs}
+            location={location}
+            onSwipeRight={job => this.props.likeJob(job)}
+          />
         </View>
       </SafeAreaView>
     );
@@ -28,4 +33,7 @@ const mapStateToProps = ({ jobs }) => ({
   jobs
 });
 
-export default connect(mapStateToProps)(DeckScreen);
+export default connect(
+  mapStateToProps,
+  actions
+)(DeckScreen);

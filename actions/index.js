@@ -5,7 +5,8 @@ import qs from "qs";
 import {
   FACEBOOK_LOGIN_SUCCESS,
   FACEBOOK_LOGIN_FAIL,
-  FETCH_JOBS
+  FETCH_JOBS,
+  LIKE_JOB
 } from "./types";
 import { APP_ID } from "../utils";
 
@@ -26,7 +27,6 @@ export const fetchJobs = (region, search, navigate) => async dispatch => {
     let { data } = await axios.get(url);
     dispatch({ type: FETCH_JOBS, payload: data });
     navigate();
-    console.log(data);
   } catch (err) {
     console.error(err);
   }
@@ -59,4 +59,11 @@ const logIn = async dispatch => {
     //type === 'cancel'
     return dispatch({ type: FACEBOOK_LOGIN_FAIL });
   }
+};
+
+export const likeJob = job => {
+  return {
+    payload: job,
+    type: LIKE_JOB
+  };
 };
