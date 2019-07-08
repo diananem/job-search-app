@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import { Text, View, Button, Platform } from "react-native";
+import { Text, ScrollView, Button } from "react-native";
+import { connect } from "react-redux";
 
-export default class ReviewScreen extends Component {
+import LikedJobs from "../components/LikedJobs";
+
+class ReviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Review Jobs",
     headerRight: (
@@ -14,9 +17,15 @@ export default class ReviewScreen extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Review Screen</Text>
-      </View>
+      <ScrollView>
+        <LikedJobs jobs={this.props.likedJobs} />
+      </ScrollView>
     );
   }
 }
+
+const mapStateToProps = ({ likedJobs }) => ({
+  likedJobs
+});
+
+export default connect(mapStateToProps)(ReviewScreen);
