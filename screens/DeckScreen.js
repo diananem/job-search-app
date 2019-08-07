@@ -9,7 +9,9 @@ import * as actions from "../actions";
 
 class DeckScreen extends Component {
   render() {
-    const location = this.props.navigation.getParam("region", {
+    const { navigation, jobs, likeJob } = this.props;
+
+    const location = navigation.getParam("region", {
       latitude: 37,
       longitude: -122,
       latitudeDelta: 0.09,
@@ -19,9 +21,10 @@ class DeckScreen extends Component {
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <View style={{ marginTop: 10 }}>
           <Deck
-            data={this.props.jobs}
+            data={jobs}
             location={location}
-            onSwipeRight={job => this.props.likeJob(job)}
+            navigation={navigation}
+            onSwipeRight={job => likeJob(job)}
           />
         </View>
       </SafeAreaView>

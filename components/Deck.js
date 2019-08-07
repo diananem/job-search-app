@@ -9,7 +9,7 @@ import {
   UIManager
 } from "react-native";
 
-import { Card } from "react-native-elements";
+import { Card, Button } from "react-native-elements";
 
 import CardComponent from "./Card";
 
@@ -91,7 +91,7 @@ class Deck extends Component {
 
   renderCards() {
     const { currentCard } = this.state;
-    const { data, location } = this.props;
+    const { data, location, navigation } = this.props;
     if (currentCard >= data.length) {
       return (
         <Card
@@ -106,6 +106,12 @@ class Deck extends Component {
             There is no jobs in this region for now... Search in another city or
             try later
           </Text>
+          <Button
+            title="Go back to Map"
+            large
+            icon={{ name: "my-location" }}
+            onPress={() => navigation.navigate("Map")}
+          />
         </Card>
       );
     }
