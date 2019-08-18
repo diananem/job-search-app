@@ -12,7 +12,7 @@ class SettingsScreen extends Component {
           title="Reset Liked Jobs"
           large
           icon={{ name: "delete-forever" }}
-          backgroundColor="#f44336"
+          buttonStyle={{ backgroundColor: "#f44336" }}
           onPress={this.props.clearLikedJobs}
         />
       </View>

@@ -13,16 +13,18 @@ const LikedJobs = ({ jobs }) =>
         company,
         created_at,
         how_to_apply,
+        url,
         location,
         type,
         company_logo
       } = job;
-      console.log(company_logo);
       const extractLink = str => {
         const matches = str.match(/"(.*?)"/);
         return matches ? matches[1] : str;
       };
-      const applyLink = extractLink(how_to_apply);
+      const applyLink = how_to_apply.includes("https:/")
+        ? extractLink(how_to_apply)
+        : url;
       return (
         <Card title={title} key={id}>
           {company_logo && (
@@ -38,7 +40,7 @@ const LikedJobs = ({ jobs }) =>
           )}
 
           <View style={styles.jobDetails}>
-            <Text style={{ fontStyle: "italic" }}>{company}</Text>
+            <Text style={styles.companyName}>{company}</Text>
             <Text>{formatDate(created_at)}</Text>
           </View>
           <View style={styles.jobDetails}>
@@ -49,7 +51,11 @@ const LikedJobs = ({ jobs }) =>
           <Button
             style={{ marginTop: 30 }}
             title="Apply Now!"
-            onPress={() => Linking.openURL(applyLink)}
+            onPress={() =>
+              Linking.openURL(applyLink).catch(err =>
+                console.log("An error occurred", err)
+              )
+            }
           />
         </Card>
       );
@@ -61,6 +67,11 @@ const styles = {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 20
+  },
+  companyName: {
+    fontStyle: "italic",
+    flexWrap: "wrap",
+    maxWidth: 200
   }
 };
 

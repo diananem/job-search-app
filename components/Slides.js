@@ -1,12 +1,6 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  Dimensions,
-  Button
-} from "react-native";
+import { View, Text, ScrollView, StyleSheet, Dimensions } from "react-native";
+import { Button } from "react-native-elements";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -15,9 +9,11 @@ class Slides extends Component {
     const { data, onComplete } = this.props;
     if (index === data.length - 1) {
       return (
-        <View style={styles.buttonStyle}>
-          <Button color="#f5bf80" title="Get Started" onPress={onComplete} />
-        </View>
+        <Button
+          buttonStyle={{ backgroundColor: "#f5bf80", marginTop: 50 }}
+          title="Get Started"
+          onPress={onComplete}
+        />
       );
     }
   }
@@ -53,9 +49,6 @@ const styles = StyleSheet.create({
     fontSize: 50,
     color: "white",
     textAlign: "center"
-  },
-  buttonStyle: {
-    marginTop: 50
   }
 });
 

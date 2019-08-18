@@ -25,12 +25,7 @@ class AuthScreen extends Component {
   render() {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-        <View>
-          <Text>Auth Screen</Text>
-          <Text>Auth Screen</Text>
-          <Text>Auth Screen</Text>
-          <Text>Auth Screen</Text>
-        </View>
+        <View />
       </SafeAreaView>
     );
   }

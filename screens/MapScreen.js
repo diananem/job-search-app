@@ -9,10 +9,10 @@ import * as actions from "../actions";
 class MapScreen extends Component {
   state = {
     region: {
-      latitude: 37,
-      longitude: -122,
-      latitudeDelta: 0.09,
-      longitudeDelta: 0.04
+      latitude: 34.0908264349346,
+      latitudeDelta: 0.5380417027756508,
+      longitude: -118.24549615257664,
+      longitudeDelta: 0.3497693521110108
     },
     search: ""
   };
@@ -35,7 +35,7 @@ class MapScreen extends Component {
           initialRegion={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}
         />
-        <View style={{ position: "absolute", top: 80, left: 30, right: 30 }}>
+        <View style={{ position: "absolute", top: 60, left: 30, right: 30 }}>
           <TextInput
             style={{
               height: 50,
@@ -44,7 +44,7 @@ class MapScreen extends Component {
               fontSize: 21,
               paddingLeft: 10
             }}
-            placeholder="Enter your speciality"
+            placeholder="Enter job title or keywords"
             onChangeText={text => this.setState({ search: text })}
           />
         </View>

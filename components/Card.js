@@ -1,7 +1,9 @@
 import React from "react";
 import { MapView } from "expo";
-import { View, Text } from "react-native";
+import { View, Text, Platform } from "react-native";
 import { Card } from "react-native-elements";
+
+import { formatDate } from "../formatDate";
 
 const CardComponent = ({ job, location }) => (
   <Card
@@ -12,9 +14,9 @@ const CardComponent = ({ job, location }) => (
       paddingTop: 10,
       textAlignVertical: "center"
     }}
-    containerStyle={{ minHeight: 500 }}
+    containerStyle={{ minHeight: Platform.OS === "ios" ? 650 : 550 }}
   >
-    <View style={{ height: 300 }}>
+    <View style={{ height: Platform.OS === "ios" ? 300 : 200 }}>
       <MapView
         scrollEnabled={false}
         style={{ flex: 1 }}
@@ -23,52 +25,27 @@ const CardComponent = ({ job, location }) => (
       />
     </View>
     <View style={styles.jobDetails}>
-      <Text>{job.company}</Text>
+      <Text style={styles.companyName}>{job.company}</Text>
       <Text>{formatDate(job.created_at)}</Text>
     </View>
-    <View style={styles.jobDetails}>
-      <Text>{job.location}</Text>
-      <Text>{job.type}</Text>
+    <View style={{ marginTop: 20 }}>
+      <Text numberOfLines={10} ellipsizeMode="tail">
+        {job.description.replace(/(<([^>]+)>)/g, "")}
+      </Text>
     </View>
   </Card>
 );
-
-const formatDate = date => {
-  let s = (+new Date() - Date.parse(date)) / 1e3;
-  let m = s / 60;
-  let h = m / 60;
-  let d = h / 24;
-  let y = d / 365.242199;
-  let tmp;
-  const isEqual = num => (tmp = Math.round(num)) === 1;
-  const isBigger = num => num < 1.01;
-
-  return isEqual(s)
-    ? "just now"
-    : isBigger(m)
-    ? tmp + " seconds ago"
-    : isEqual(m)
-    ? "a minute ago"
-    : isBigger(h)
-    ? tmp + " minutes ago"
-    : isEqual(h)
-    ? "an hour ago"
-    : isBigger(d)
-    ? tmp + " hours ago"
-    : isEqual(d)
-    ? "yesterday"
-    : isBigger(y)
-    ? tmp + " days ago"
-    : isEqual(y)
-    ? "a year ago"
-    : tmp + " years ago";
-};
 
 const styles = {
   jobDetails: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 20
+  },
+  companyName: {
+    fontStyle: "italic",
+    flexWrap: "wrap",
+    maxWidth: 200
   }
 };
 
