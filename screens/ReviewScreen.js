@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Text, ScrollView, Button } from "react-native";
+import { Text, ScrollView } from "react-native";
+import { Button, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 
 import LikedJobs from "../components/LikedJobs";
@@ -9,7 +10,8 @@ class ReviewScreen extends Component {
     title: "Review Jobs",
     headerRight: (
       <Button
-        title=" Go to Settings "
+        type="clear"
+        icon={{ name: "settings", color: "#2089dc", size: 30 }}
         onPress={() => navigation.navigate("Settings")}
       />
     )

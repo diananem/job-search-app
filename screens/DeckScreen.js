@@ -2,12 +2,19 @@ import React, { Component } from "react";
 import { Text, View, SafeAreaView } from "react-native";
 import { connect } from "react-redux";
 import { MapView, Location } from "expo";
-import { Card } from "react-native-elements";
+import { Card, Icon } from "react-native-elements";
 
 import Deck from "../components/Deck";
 import * as actions from "../actions";
 
 class DeckScreen extends Component {
+  static navigationOptions = {
+    title: "Jobs",
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="filter-none" size={30} color={tintColor} />
+    )
+  };
+
   render() {
     const { navigation, jobs, likeJob } = this.props;
 

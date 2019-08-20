@@ -7,6 +7,7 @@ import {
   createAppContainer
 } from "react-navigation";
 import { Provider } from "react-redux";
+import { Icon } from "react-native-elements";
 
 import store from "./store";
 import AuthScreen from "./screens/AuthScreen";
@@ -31,19 +32,35 @@ const AppNavigator = createSwitchNavigator(
     Welcome: { screen: WelcomeScreen },
     Auth: { screen: AuthScreen },
     Main: {
-      screen: createBottomTabNavigator({
-        Map: { screen: MapScreen },
-        Deck: { screen: DeckScreen },
-        Review: {
-          screen: createStackNavigator({
-            Review: { screen: ReviewScreen },
-            Settings: { screen: SettingsScreen }
-          })
+      screen: createBottomTabNavigator(
+        {
+          Map: { screen: MapScreen },
+          Deck: { screen: DeckScreen },
+          Review: {
+            screen: createStackNavigator(
+              {
+                Review: { screen: ReviewScreen },
+                Settings: { screen: SettingsScreen }
+              },
+              { headerBackTitleVisible: true }
+            ),
+            navigationOptions: {
+              title: "Favorite",
+              tabBarIcon: ({ tintColor }) => (
+                <Icon name="star" size={30} color={tintColor} />
+              )
+            }
+          }
+        },
+        {
+          tabBarOptions: {
+            labelStyle: { fontSize: 14 }
+          }
         }
-      })
+      )
     }
-  }
-  // { lazy: true }
+  },
+  { lazy: true }
 );
 
 const AppContainer = createAppContainer(AppNavigator);
