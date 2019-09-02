@@ -1,7 +1,24 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import { persistStore, persistReducer } from "redux-persist";
+import { AsyncStorage } from "react-native";
+
 import reducer from "../reducers";
 
-const store = createStore(reducer, {}, compose(applyMiddleware(thunk)));
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage,
+  whitelist: ["likedJobs"]
+};
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+export default (configureStore = () => {
+  let store = createStore(
+    persistedReducer,
+    {},
+    compose(applyMiddleware(thunk))
+  );
+  let persistor = persistStore(store);
+  return { store, persistor };
+});

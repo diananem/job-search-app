@@ -7,9 +7,10 @@ import {
   createAppContainer
 } from "react-navigation";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { Icon } from "react-native-elements";
 
-import store from "./store";
+import configureStore from "./store";
 import AuthScreen from "./screens/AuthScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import MapScreen from "./screens/MapScreen";
@@ -17,11 +18,15 @@ import DeckScreen from "./screens/DeckScreen";
 import ReviewScreen from "./screens/ReviewScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 
+const { persistor, store } = configureStore();
+
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <AppContainer />
+        <PersistGate persistor={persistor}>
+          <AppContainer />
+        </PersistGate>
       </Provider>
     );
   }
