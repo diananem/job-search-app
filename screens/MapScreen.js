@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextInput, View, SafeAreaView } from "react-native";
 import { Button, Icon } from "react-native-elements";
-import { MapView } from "expo";
+import MapView from "react-native-maps";
 import { connect } from "react-redux";
 
 import * as actions from "../actions";

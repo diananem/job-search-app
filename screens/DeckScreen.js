@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, SafeAreaView } from "react-native";
 import { connect } from "react-redux";
-import { MapView, Location } from "expo";
 import { Card, Icon } from "react-native-elements";
 
 import Deck from "../components/Deck";

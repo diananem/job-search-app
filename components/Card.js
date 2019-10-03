@@ -1,5 +1,5 @@
 import React from "react";
-import { MapView } from "expo";
+import MapView from "react-native-maps";
 import { View, Text, Platform } from "react-native";
 import { Card } from "react-native-elements";
 
