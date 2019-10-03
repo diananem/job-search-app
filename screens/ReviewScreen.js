@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, ScrollView } from "react-native";
-import { Button, Icon } from "react-native-elements";
+import { Button, Icon, Card } from "react-native-elements";
 import { connect } from "react-redux";
 
 import LikedJobs from "../components/LikedJobs";
@@ -20,7 +20,16 @@ class ReviewScreen extends Component {
   render() {
     return (
       <ScrollView>
-        <LikedJobs jobs={this.props.likedJobs} />
+        {this.props.likedJobs.length === 0 ? (
+          <Card title="No jobs">
+            <Text>
+              There is no favorite jobs yet. Swipe job to the right in Job
+              section to add it in Favorite.
+            </Text>
+          </Card>
+        ) : (
+          <LikedJobs jobs={this.props.likedJobs} />
+        )}
       </ScrollView>
     );
   }
