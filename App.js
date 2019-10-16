@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
+import { Notifications } from "expo";
 import {
   createSwitchNavigator,
   createBottomTabNavigator,
@@ -10,6 +11,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Icon } from "react-native-elements";
 
+import registerForPushNotificationsAsync from "./push_notifications";
 import configureStore from "./store";
 import AuthScreen from "./screens/AuthScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
@@ -21,6 +23,20 @@ import SettingsScreen from "./screens/SettingsScreen";
 const { persistor, store } = configureStore();
 
 export default class App extends Component {
+  componentDidMount() {
+    registerForPushNotificationsAsync();
+    Notifications.addListener(notification => {
+      const { origin } = notification;
+      if (origin === "received") {
+        Alert.alert(
+          "A new job posted",
+          "Check out your region for more jobs",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+          { cancelable: false }
+        );
+      }
+    });
+  }
   render() {
     return (
       <Provider store={store}>
