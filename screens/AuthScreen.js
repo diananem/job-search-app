@@ -12,7 +12,7 @@ class AuthScreen extends Component {
     // this.onAuthComplete(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.onAuthComplete(nextProps);
   }
 
@@ -35,7 +35,4 @@ const mapStateToProps = ({ auth }) => ({
   token: auth.token
 });
 
-export default connect(
-  mapStateToProps,
-  actions
-)(AuthScreen);
+export default connect(mapStateToProps, actions)(AuthScreen);

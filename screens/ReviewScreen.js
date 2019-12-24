@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, ScrollView } from "react-native";
-import { Button, Icon, Card } from "react-native-elements";
+import { Button, Card } from "react-native-elements";
 import { connect } from "react-redux";
 
 import LikedJobs from "../components/LikedJobs";

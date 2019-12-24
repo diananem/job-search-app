@@ -12,7 +12,7 @@ const SLIDE_DATA = [
 export default class WelcomeScreen extends Component {
   state = { token: null };
 
-  async componentWillMount() {
+  async componentDidMount() {
     // AsyncStorage.removeItem("fb_token");
     const token = await AsyncStorage.getItem("fb_token");
     this.props.navigation.navigate(token ? "Map" : "Welcome");

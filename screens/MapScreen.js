@@ -81,7 +81,4 @@ const styles = {
   }
 };
 
-export default connect(
-  null,
-  actions
-)(MapScreen);
+export default connect(null, actions)(MapScreen);

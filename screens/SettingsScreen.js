@@ -6,6 +6,10 @@ import { clearLikedJobs } from "../actions";
 
 class SettingsScreen extends Component {
   render() {
+    const onPress = () => {
+      this.props.clearLikedJobs();
+      this.props.navigation.navigate("Review");
+    };
     return (
       <View>
         <Button
@@ -13,14 +17,11 @@ class SettingsScreen extends Component {
           large
           icon={{ name: "delete-forever" }}
           buttonStyle={{ backgroundColor: "#f44336" }}
-          onPress={this.props.clearLikedJobs}
+          onPress={onPress}
         />
       </View>
     );
   }
 }
 
-export default connect(
-  null,
-  { clearLikedJobs }
-)(SettingsScreen);
+export default connect(null, { clearLikedJobs })(SettingsScreen);
