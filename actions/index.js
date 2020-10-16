@@ -7,7 +7,7 @@ import {
   FACEBOOK_LOGIN_FAIL,
   FETCH_JOBS,
   LIKE_JOB,
-  CLEAR_LIKED_JOBS
+  CLEAR_LIKED_JOBS,
 } from "./types";
 import { APP_ID } from "../utils";
 
@@ -17,12 +17,12 @@ const buildJobUrl = (region, search) => {
   const query = qs.stringify({
     search,
     lat: region.latitude,
-    long: region.longitude
+    long: region.longitude,
   });
   return `${JOB_ROOT_URL}${query}`;
 };
 
-export const fetchJobs = (region, search, navigate) => async dispatch => {
+export const fetchJobs = (region, search, navigate) => async (dispatch) => {
   try {
     const url = buildJobUrl(region, search);
     let { data } = await axios.get(url);
@@ -33,7 +33,7 @@ export const fetchJobs = (region, search, navigate) => async dispatch => {
   }
 };
 
-export const facebookLogin = () => async dispatch => {
+export const facebookLogin = () => async (dispatch) => {
   try {
     let token = await AsyncStorage.getItem("fb_token");
     if (token) {
@@ -48,10 +48,10 @@ export const facebookLogin = () => async dispatch => {
   }
 };
 
-const logIn = async dispatch => {
-  await Facebook.initializeAsync(APP_ID);
-  let { type, token } = await Facebook.logInWithReadPermissionsAsync(APP_ID, {
-    permissions: ["public_profile"]
+const logIn = async (dispatch) => {
+  await Facebook.initializeAsync({ appId: APP_ID });
+  let { type, token } = await Facebook.logInWithReadPermissionsAsync({
+    permissions: ["public_profile"],
   });
 
   if (type === "success") {
@@ -63,14 +63,14 @@ const logIn = async dispatch => {
   }
 };
 
-export const likeJob = job => {
+export const likeJob = (job) => {
   return {
     payload: job,
-    type: LIKE_JOB
+    type: LIKE_JOB,
   };
 };
 export const clearLikedJobs = () => {
   return {
-    type: CLEAR_LIKED_JOBS
+    type: CLEAR_LIKED_JOBS,
   };
 };
