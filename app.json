@@ -3,7 +3,6 @@
     "name": "Job Search",
     "slug": "job-search-app",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android"
