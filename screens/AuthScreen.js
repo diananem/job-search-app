@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Text, View, SafeAreaView, AsyncStorage } from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+
 import { connect } from "react-redux";
 
 import * as actions from "../actions";
@@ -16,7 +18,7 @@ class AuthScreen extends Component {
     this.onAuthComplete(nextProps);
   }
 
-  onAuthComplete = props => {
+  onAuthComplete = (props) => {
     if (props.token) {
       this.props.navigation.navigate("Map");
     }
@@ -32,7 +34,7 @@ class AuthScreen extends Component {
 }
 
 const mapStateToProps = ({ auth }) => ({
-  token: auth.token
+  token: auth.token,
 });
 
 export default connect(mapStateToProps, actions)(AuthScreen);

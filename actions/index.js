@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import * as Facebook from "expo-facebook";
 import * as axios from "axios";
 import qs from "qs";

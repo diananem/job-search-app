@@ -1,6 +1,6 @@
-import { Notifications } from "expo";
+import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import axios from "axios";
 
 const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send";
@@ -25,7 +25,7 @@ export default async () => {
       return;
     }
     // Get the token that uniquely identifies this device
-    let token = await Notifications.getExpoPushTokenAsync();
+    let token = await Notifications.getExpoPushTokenAsync().data;
     await axios
       .post(
         PUSH_ENDPOINT,
@@ -35,14 +35,14 @@ export default async () => {
             host: "exp.host",
             accept: "application/json",
             "accept-encoding": "gzip, deflate",
-            "content-type": "application/json"
-          }
+            "content-type": "application/json",
+          },
         }
       )
-      .then(response => {
+      .then((response) => {
         console.log("reactNativeDemo", "response get details:" + response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("axios error:", error);
       });
     AsyncStorage.setItem("pushtoken", token);

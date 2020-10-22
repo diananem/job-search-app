@@ -1,19 +1,19 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import reducer from "../reducers";
 
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["likedJobs"]
+  whitelist: ["likedJobs"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-export default (configureStore = () => {
+export default configureStore = () => {
   let store = createStore(
     persistedReducer,
     {},
@@ -21,4 +21,4 @@ export default (configureStore = () => {
   );
   let persistor = persistStore(store);
   return { store, persistor };
-});
+};

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Alert } from "react-native";
-import { Notifications } from "expo";
+import * as Notifications from "expo-notifications";
 import {
   createSwitchNavigator,
   createBottomTabNavigator,
   createStackNavigator,
-  createAppContainer
+  createAppContainer,
 } from "react-navigation";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -25,16 +25,13 @@ const { persistor, store } = configureStore();
 export default class App extends Component {
   componentDidMount() {
     registerForPushNotificationsAsync();
-    Notifications.addListener(notification => {
-      const { origin } = notification;
-      if (origin === "received") {
-        Alert.alert(
-          "A new job posted",
-          "Check out your region for more jobs",
-          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-          { cancelable: false }
-        );
-      }
+    Notifications.addNotificationReceivedListener((notification) => {
+      Alert.alert(
+        "A new job posted",
+        "Check out your region for more jobs",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
     });
   }
   render() {
@@ -61,7 +58,7 @@ const AppNavigator = createSwitchNavigator(
             screen: createStackNavigator(
               {
                 Review: { screen: ReviewScreen },
-                Settings: { screen: SettingsScreen }
+                Settings: { screen: SettingsScreen },
               },
               { headerBackTitleVisible: true }
             ),
@@ -69,17 +66,17 @@ const AppNavigator = createSwitchNavigator(
               title: "Favorite",
               tabBarIcon: ({ tintColor }) => (
                 <Icon name="star" size={30} color={tintColor} />
-              )
-            }
-          }
+              ),
+            },
+          },
         },
         {
           tabBarOptions: {
-            labelStyle: { fontSize: 14 }
-          }
+            labelStyle: { fontSize: 14 },
+          },
         }
-      )
-    }
+      ),
+    },
   },
   { lazy: true }
 );
@@ -91,6 +88,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
