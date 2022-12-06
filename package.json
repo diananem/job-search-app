@@ -13,7 +13,7 @@
     "expo-facebook": "~9.0.0",
     "expo-notifications": "~0.7.2",
     "lodash": "^4.17.19",
-    "qs": "^6.7.0",
+    "qs": "^6.7.3",
     "react": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
     "react-native-elements": "^1.1.0",
